@@ -1,0 +1,5 @@
+install Fabric on Mac
+
+>sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install fabric
+
+The extra's are to prevent install errors on OS X Mountain Lion (Mavericks: should be fixed)
