@@ -12,4 +12,6 @@ Output:
 '''
 
 def hello(name): 
-	print("Hello %s" % name)
+	print("Hello there %s" % name)
+	
+# test
