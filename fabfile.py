@@ -1,6 +1,7 @@
 from fabric.api import local, env 
 from fabric.operations import run, put
 from fabric.context_managers import cd
+from fabric.contrib.project import rsync_project
 
 '''
 fabfile.py
@@ -65,7 +66,9 @@ def pull():
 
 # Deploy from local to remote server
 # NB: the problem with put is that locally removed files are not removed remotely.
+# Use rsync
 def deploy():
 	put("%s" % local_path, "%s" % remote_path)
+#	rsync_project("~/fabric_tryout", "./src/")
 	
 	
