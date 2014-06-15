@@ -25,9 +25,9 @@ Output:
 project_name ="fabric_tryout"
 
 remote_user = "pi"
-# remote_host = "10.0.0.18"
+remote_host = "10.0.0.18"
 # remote_host = "192.168.2.4"
-remote_host = "81.68.58.163"
+#  	remote_host = "81.68.58.163"
 remote_port = "2222"
 #remote_port = "2226"
 local_path = "./src/*"
@@ -65,10 +65,36 @@ def pull():
 	
 
 # Deploy from local to remote server
-# NB: the problem with put is that locally removed files are not removed remotely.
-# Use rsync
+
+# fabric.contrib.project.rsync_project source definition
+#	[https://github.com/fabric/fabric/blob/master/fabric/contrib/project.py} 
+#
+#	def rsync_project(
+#    remote_dir,
+#    local_dir=None,
+#    exclude=(),
+#    delete=False,
+#    extra_opts='',
+#    ssh_opts='',
+#    capture=False,
+#    upload=True,
+#    default_opts='-pthrvz'
+#	):
+
+# The rsync_project() below will give
+#	rsync --delete -pthrvz -EgolHDu --out-format="info - %i %B %12b %12l %M %f%L" --rsh='ssh  -p 2222 ' src/ pi@10.0.0.18:~/fabric_tryout
+#		rsync					generate by fabric 
+#		--delete 				added by programmer as: delete=True
+#		-pthrvz 				added by fabric
+#		-EgolHDu <etc>			added by programmer as: extra_opts=-EgolHDu --out-format="info - %i %B %12b %12l %M %f%L"
+#		--rsh='ssh  -p 2222 '	added by Fabric using variable env.hosts
+#		src/ 					added by programmer
+#		pi@10.0.0.18:			added by Fabric using variable env.hosts
+#		~/fabric_tryout			added by programmer
 def deploy():
-	put("%s" % local_path, "%s" % remote_path)
-#	rsync_project("~/fabric_tryout", "./src/")
+	local= "src/"
+	remote = "~/fabric_tryout"
+	opt = '-EgolHDu --out-format="info - %i %B %12b %12l %M %f%L"'
+	rsync_project(remote, local, delete=True, extra_opts=opt)
 	
 	
