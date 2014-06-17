@@ -25,9 +25,9 @@ Output:
 project_name ="fabric_tryout"
 
 remote_user = "pi"
-#remote_host = "10.0.0.18"
+remote_host = "10.0.0.18"
 #remote_host = "192.168.2.4"
-remote_host = "81.68.58.163"
+#remote_host = "81.68.58.163"
 remote_port = "2222"
 #remote_port = "2226"
 env.hosts = ["%s@%s:%s" % (remote_user,  remote_host, remote_port)]
